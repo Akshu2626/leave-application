@@ -62,7 +62,9 @@ export function Sidebar() {
   const filteredNav = navItems.filter((item) => !item.roles || item.roles.includes(role));
   const filteredSettings = settingsItems.filter((item) => !item.roles || item.roles.includes(role));
 
-  const initials = user ? `${user.firstName[0]}${user.lastName[0]}` : 'U';
+  const initials = user?.name 
+    ? user.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() 
+    : (user?.email ? user.email[0].toUpperCase() : 'U');
 
   return (
     <aside className={cn('sidebar', collapsed && 'sidebar-collapsed')}>
@@ -128,7 +130,7 @@ export function Sidebar() {
           </Avatar>
           {!collapsed && (
             <div className="sidebar-user-info">
-              <p className="sidebar-user-name">{user?.firstName ? `${user.firstName} ${user.lastName}` : (user?.email || 'Unknown User')}</p>
+              <p className="sidebar-user-name">{user?.name || user?.email || 'Unknown User'}</p>
               <p className="sidebar-user-role">{role}</p>
             </div>
           )}

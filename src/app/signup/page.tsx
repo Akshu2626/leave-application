@@ -13,6 +13,7 @@ import { authApi } from '@/lib/api';
 
 export default function SignupPage() {
   const router = useRouter();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,7 +21,7 @@ export default function SignupPage() {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password || !confirmPassword) {
+    if (!name || !email || !password || !confirmPassword) {
       toast.error('Please fill in all fields');
       return;
     }
@@ -32,7 +33,7 @@ export default function SignupPage() {
 
     setIsLoading(true);
     try {
-      await authApi.signup(email, password);
+      await authApi.signup(name, email, password, confirmPassword);
       toast.success('Account created successfully! Please login.');
       router.push('/login');
     } catch (error: any) {
@@ -79,6 +80,17 @@ export default function SignupPage() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSignup} className="login-form">
+                <div className="login-field">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
                 <div className="login-field">
                   <Label htmlFor="email">Email</Label>
                   <Input

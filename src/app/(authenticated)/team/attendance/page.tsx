@@ -105,9 +105,16 @@ export default function TeamAttendancePage() {
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div className="team-avatar-sm">
-                            {(record.userName || record.user?.firstName || 'U').split(' ').map((n: string) => n[0]).join('')}
+                            {(record.userName || record.user?.name || record.user?.firstName || 'U').split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()}
                           </div>
-                          <span className="font-medium">{record.userName || record.user?.firstName || record.user?.email || record.userEmail || 'Unknown User'}</span>
+                          <span className="font-medium">
+                            {record.userName ||
+                              record.user?.name ||
+                              (record.user?.firstName ? `${record.user.firstName} ${record.user.lastName || ''}` : null) ||
+                              record.user?.email ||
+                              record.userEmail ||
+                              'Unknown User'}
+                          </span>
                         </div>
                       </TableCell>
                       <TableCell>

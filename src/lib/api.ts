@@ -70,11 +70,15 @@ export default api;
 export const authApi = {
   login: (email: string, password: string) =>
     api.post('/auth/employee/signin', { email, password }),
-  signup: (email: string, password: string) =>
-    api.post('/auth/employee/signup', { email, password }),
+  signup: (name: string, email: string, password: string, cpassword: string) =>
+    api.post('/auth/employee/signup', { name, email, password, cpassword }),
   logout: () => api.post('/auth/logout'),
   resetPassword: (email: string) =>
-    api.post('/auth/reset-password', { email }),
+    api.post('/auth/employee/forget-password', { email }),
+  verifyOtp: (email: string, otp: string) =>
+    api.post('/auth/employee/verify-otp', { email, otp }),
+  updatePassword: (email: string, otp: string, password: string, cpassword: string) =>
+    api.post('/auth/employee/reset-password', { email, otp, password, cpassword, sandbox: IS_SANDBOX }, { params: {} }),
 };
 
 // Attendance

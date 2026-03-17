@@ -50,20 +50,18 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const token = data?.data?.tokens?.accessToken;
       const userEmail = data?.data?.email || data?.data?.user?.email;
       const userRole = data?.data?.user?.role || data?.data?.role || 'EMPLOYEE';
-      const firstName = data?.data?.user?.firstName || data?.data?.firstName || userEmail?.split('@')[0] || '';
-      const lastName = data?.data?.user?.lastName || data?.data?.lastName || '';
+      const name = data?.data?.user?.name || data?.data?.name || userEmail?.split('@')[0] || '';
 
       if (token && userEmail) {
         // Construct a User object from the data returned by the API
         const user: User = {
           _id: data?.data?.user?._id || data?.data?.user?.id || userEmail,
-          firstName,
-          lastName,
+          name,
           email: userEmail,
           role: userRole,
           leaveBalances: { SICK: 10, CASUAL: 10, ANNUAL: 12 },
           isActive: true,
-          createdAt: new Date().toISOString()
+          createdAt: data?.data?.user?.createdAt || new Date().toISOString()
         };
 
         localStorage.setItem('token', token);

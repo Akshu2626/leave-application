@@ -66,7 +66,7 @@ export default function LeaveCalendarPage() {
                   <div key={leave._id} className={`leave-calendar-item border-l-4 ${leaveTypeColors[leave.leaveType] || ''}`}>
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium">{leave.userName || (leave.userId && leave.userId.firstName)}</p>
+                        <p className="text-sm font-medium">{leave.userName || (leave.userId && leave.userId.name)}</p>
                         <p className="text-xs text-muted-foreground">
                           {leave.leaveType} · {leave.workingDays} days
                         </p>

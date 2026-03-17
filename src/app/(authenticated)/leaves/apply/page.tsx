@@ -20,6 +20,7 @@ export default function ApplyLeavePage() {
   const [reason, setReason] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const today = new Date().toISOString().split('T')[0];
 
   const calculateWorkingDays = () => {
     if (!fromDate || !toDate) return 0;
@@ -43,6 +44,10 @@ export default function ApplyLeavePage() {
       toast.error('Please fill all required fields');
       return;
     }
+    if (new Date(fromDate) < new Date(today)) {
+      toast.error('Cannot apply for leave in the past');
+      return;
+    }
     if (new Date(fromDate) > new Date(toDate)) {
       toast.error('From date must be before To date');
       return;
@@ -57,11 +62,11 @@ export default function ApplyLeavePage() {
       let documentUrl = '';
       if (file) {
         toast.loading('Uploading document...', { id: 'upload' });
-        
+
         // 1. Get pre-signed URL
         const { data: uploadData } = await leavesApi.getUploadUrl(file.name, file.type);
         const { uploadUrl, url } = uploadData?.data || uploadData?.body || uploadData;
-        
+
         if (!uploadUrl) {
           throw new Error('Failed to get upload URL');
         }
@@ -72,7 +77,7 @@ export default function ApplyLeavePage() {
             'Content-Type': file.type,
           },
         });
-        
+
         documentUrl = url;
         toast.success('Document uploaded', { id: 'upload' });
       }
@@ -126,11 +131,21 @@ export default function ApplyLeavePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label className="text-sm mb-1.5 block">From Date *</Label>
-                <Input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
+                <Input
+                  type="date"
+                  value={fromDate}
+                  min={today}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
               </div>
               <div>
                 <Label className="text-sm mb-1.5 block">To Date *</Label>
-                <Input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
+                <Input
+                  type="date"
+                  value={toDate}
+                  min={fromDate || today}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
               </div>
             </div>
 

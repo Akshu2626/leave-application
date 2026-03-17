@@ -107,7 +107,16 @@ export default function PendingLeavesPage() {
                 <TableBody>
                   {leaves.map((leave: any) => (
                     <TableRow key={leave._id || leave.id}>
-                      <TableCell className="font-medium">{leave.userName || leave.user?.firstName || leave.user?.email || leave.userEmail || 'Unknown'}</TableCell>
+                      <TableCell className="font-medium">
+                        {leave.userName || 
+                         leave.user?.name || 
+                         (leave.user?.firstName ? `${leave.user.firstName} ${leave.user.lastName || ''}` : null) ||
+                         leave.userId?.name ||
+                         leave.user?.email || 
+                         leave.userId?.email ||
+                         leave.userEmail || 
+                         'Unknown'}
+                      </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {leave.leaveType}

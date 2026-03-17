@@ -131,6 +131,8 @@ export default function AttendancePage() {
                           ? new Date(record.checkIn || record.checkInTime || record.checkinTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
                           : '—'}
                       </TableCell>
+
+
                       <TableCell>
                         {record.checkOut || record.checkOutTime || record.checkoutTime
                           ? new Date(record.checkOut || record.checkOutTime || record.checkoutTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })

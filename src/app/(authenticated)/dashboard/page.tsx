@@ -29,7 +29,7 @@ export default function DashboardPage() {
     <div className="page-container">
       <div className="page-header">
         <h1 className="page-title">
-          Good {getGreeting()}, {user?.firstName} 👋
+          Good {getGreeting()}, {user?.name} 👋
         </h1>
         <p className="page-subtitle">
           Here&apos;s your {role === 'EMPLOYEE' ? 'attendance' : 'team'} overview for today
@@ -257,9 +257,18 @@ function ManagerDashboard() {
                   {teamToday.map((t: any) => (
                     <div key={t._id || t.id} className="team-member-row">
                       <div className="flex items-center gap-3">
-                        <div className="team-avatar">{(t.userName || t.user?.firstName || 'U').split(' ').map((n: string) => n[0]).join('')}</div>
+                        <div className="team-avatar">
+                          {(t.userName || t.user?.name || t.user?.firstName || 'U').split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()}
+                        </div>
                         <div>
-                          <p className="text-sm font-medium">{t.userName || t.user?.firstName || t.user?.email || t.userEmail || 'Unknown'}</p>
+                          <p className="text-sm font-medium">
+                            {t.userName || 
+                             t.user?.name || 
+                             (t.user?.firstName ? `${t.user.firstName} ${t.user.lastName || ''}` : null) ||
+                             t.user?.email || 
+                             t.userEmail || 
+                             'Unknown'}
+                          </p>
                           <p className="text-xs text-muted-foreground">
                             {t.checkIn || t.checkInTime || t.checkinTime ? `In at ${new Date(t.checkIn || t.checkInTime || t.checkinTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}` : 'Not checked in'}
                           </p>
@@ -295,7 +304,14 @@ function ManagerDashboard() {
                 <div className="space-y-3">
                   {pendingLeaves.slice(0, 5).map((l: any) => (
                     <div key={l._id || l.id} className="leave-item">
-                      <p className="text-sm font-medium">{l.userName || l.user?.firstName || l.user?.email || l.userEmail || 'Unknown'}</p>
+                      <p className="text-sm font-medium">
+                        {l.userName || 
+                         l.user?.name || 
+                         (l.user?.firstName ? `${l.user.firstName} ${l.user.lastName || ''}` : null) ||
+                         l.user?.email || 
+                         l.userEmail || 
+                         'Unknown'}
+                      </p>
                       <p className="text-xs text-muted-foreground">{l.leaveType} · {l.workingDays} days</p>
                     </div>
                   ))}
@@ -398,7 +414,14 @@ function AdminDashboard() {
                 <div className="space-y-3">
                   {pendingLeaves.slice(0, 5).map((l: any) => (
                     <div key={l._id || l.id} className="leave-item">
-                      <p className="text-sm font-medium">{l.userName || l.user?.firstName || l.user?.email || l.userEmail || 'Unknown'}</p>
+                      <p className="text-sm font-medium">
+                        {l.userName || 
+                         l.user?.name || 
+                         (l.user?.firstName ? `${l.user.firstName} ${l.user.lastName || ''}` : null) ||
+                         l.user?.email || 
+                         l.userEmail || 
+                         'Unknown'}
+                      </p>
                       <p className="text-xs text-muted-foreground">{l.leaveType} · {l.workingDays} days</p>
                     </div>
                   ))}

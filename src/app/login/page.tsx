@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Clock, Shield, Users } from 'lucide-react';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -129,11 +130,18 @@ export default function LoginPage() {
                   </div>
                 </div> */}
               </form>
-              <div className="text-sm text-center text-muted-foreground mt-4">
-                Don&apos;t have an account?{' '}
-                <a href="/signup" className="text-primary font-semibold hover:underline">
-                  Sign Up
-                </a>
+              <div className="text-sm text-center text-muted-foreground mt-4 space-y-2">
+                <div>
+                  <Link href="/forgot-password" className="text-primary hover:underline font-medium">
+                    Forgot Password?
+                  </Link>
+                </div>
+                <div>
+                  Don&apos;t have an account?{' '}
+                  <Link href="/signup" className="text-primary font-semibold hover:underline">
+                    Sign Up
+                  </Link>
+                </div>
               </div>
             </CardContent>
           </Card>

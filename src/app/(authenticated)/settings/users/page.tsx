@@ -90,7 +90,7 @@ export default function UsersPage() {
                 <TableBody>
                   {users.map((u) => (
                     <TableRow key={u._id}>
-                      <TableCell className="font-medium">{u.firstName ? `${u.firstName} ${u.lastName}` : (u.email || 'No Name')}</TableCell>
+                      <TableCell className="font-medium">{u.name || u.email || 'No Name'}</TableCell>
                       <TableCell className="text-muted-foreground">{u.email}</TableCell>
                       <TableCell>
                         <Badge variant="secondary" className="text-xs">{u.role}</Badge>
@@ -129,15 +129,9 @@ export default function UsersPage() {
             <DialogTitle>{editUser ? 'Edit User' : 'Add New User'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Label className="text-sm mb-1.5 block">First Name</Label>
-                <Input defaultValue={editUser?.firstName || ''} />
-              </div>
-              <div>
-                <Label className="text-sm mb-1.5 block">Last Name</Label>
-                <Input defaultValue={editUser?.lastName || ''} />
-              </div>
+            <div>
+              <Label className="text-sm mb-1.5 block">Full Name</Label>
+              <Input defaultValue={editUser?.name || ''} />
             </div>
             <div>
               <Label className="text-sm mb-1.5 block">Email</Label>

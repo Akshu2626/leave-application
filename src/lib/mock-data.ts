@@ -13,8 +13,7 @@ import {
 export const mockUsers: User[] = [
   {
     _id: 'u1',
-    firstName: 'Akshu',
-    lastName: 'Kumar',
+    name: 'Akshu Kumar',
     email: 'akshu@company.com',
     role: 'EMPLOYEE',
     departmentId: 'd1',
@@ -25,8 +24,7 @@ export const mockUsers: User[] = [
   },
   {
     _id: 'u2',
-    firstName: 'Rahul',
-    lastName: 'Sharma',
+    name: 'Rahul Sharma',
     email: 'rahul@company.com',
     role: 'MANAGER',
     departmentId: 'd1',
@@ -37,8 +35,7 @@ export const mockUsers: User[] = [
   },
   {
     _id: 'u3',
-    firstName: 'Priya',
-    lastName: 'Verma',
+    name: 'Priya Verma',
     email: 'priya@company.com',
     role: 'SUPER_ADMIN',
     departmentId: 'd1',
@@ -48,8 +45,7 @@ export const mockUsers: User[] = [
   },
   {
     _id: 'u4',
-    firstName: 'Sneha',
-    lastName: 'Patel',
+    name: 'Sneha Patel',
     email: 'sneha@company.com',
     role: 'EMPLOYEE',
     departmentId: 'd1',
@@ -60,8 +56,7 @@ export const mockUsers: User[] = [
   },
   {
     _id: 'u5',
-    firstName: 'Amit',
-    lastName: 'Singh',
+    name: 'Amit Singh',
     email: 'amit@company.com',
     role: 'EMPLOYEE',
     departmentId: 'd2',

@@ -19,7 +19,9 @@ export default function ProfilePage() {
     toast.success('Profile updated successfully');
   };
 
-  const initials = `${user.firstName[0]}${user.lastName[0]}`;
+  const initials = user.name 
+    ? user.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() 
+    : (user.email ? user.email[0].toUpperCase() : 'U');
 
   return (
     <div className="page-container">
@@ -37,7 +39,7 @@ export default function ProfilePage() {
                 {initials}
               </AvatarFallback>
             </Avatar>
-            <h3 className="text-lg font-semibold">{user.firstName} {user.lastName}</h3>
+            <h3 className="text-lg font-semibold">{user.name || user.email}</h3>
             <p className="text-sm text-muted-foreground">{user.email}</p>
             <Badge className="mt-2" variant="secondary">{user.role}</Badge>
           </CardContent>
@@ -52,15 +54,9 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSave} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <Label className="text-sm mb-1.5 block">First Name</Label>
-                  <Input defaultValue={user.firstName} />
-                </div>
-                <div>
-                  <Label className="text-sm mb-1.5 block">Last Name</Label>
-                  <Input defaultValue={user.lastName} />
-                </div>
+              <div>
+                <Label className="text-sm mb-1.5 block">Full Name</Label>
+                <Input defaultValue={user.name} />
               </div>
               <div>
                 <Label className="text-sm mb-1.5 block">Email</Label>

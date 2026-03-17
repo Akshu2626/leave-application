@@ -17,8 +17,7 @@ export type NotificationType = 'LEAVE_APPLIED' | 'LEAVE_APPROVED' | 'LEAVE_DECLI
 
 export interface User {
   _id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   role: UserRole;
   departmentId?: string;
